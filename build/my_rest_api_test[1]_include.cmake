@@ -1,0 +1,5 @@
+if(EXISTS "/run/media/pedromn35/disk2-home/projects/cpp-rest-hlf/build/my_rest_api_test[1]_tests.cmake")
+  include("/run/media/pedromn35/disk2-home/projects/cpp-rest-hlf/build/my_rest_api_test[1]_tests.cmake")
+else()
+  add_test(my_rest_api_test_NOT_BUILT my_rest_api_test_NOT_BUILT)
+endif()

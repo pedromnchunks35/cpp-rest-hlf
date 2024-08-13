@@ -39,3 +39,28 @@
   - NUMBER OF IO CUMULATIVE TRANSMITED NETWORK PACKETS PER MACHINE
   - VARIATION OF NUMBER OF CUMULATIVE TRANSMITED PACKETS NETWORK PER MINUTE PER COMPONENT
   - NUMBER OF IO CUMULATIVE TRANSMITED PACKETS NETWORK PER MACHINE PER MINUTE
+# Header files
+1. connection.hpp
+- Purpose: Manage sessions and listen for REST service requests.
+- Typical Contents:
+  - Definitions for managing HTTP sessions.
+  - Handling incoming connections and requests.
+  - Possibly defining the server-side aspects of the HTTP connection, such as starting and stopping the server.
+2. controllers.hpp
+- Purpose: Define the controllers that process requests and generate responses.
+- Typical Contents:
+  - Interface definitions for controllers with methods like cpuController(), ramGbController(), etc.
+  - Methods typically return a RestResponse or similar type that encapsulates the HTTP response.
+3. handling.hpp
+- Purpose: Handle request dispatching and routing.
+- Typical Contents:
+  - Definitions for how incoming requests are routed to the appropriate controllers.
+    Handling the parsing of request data and invoking the correct controller methods.
+    Considerations: Implement a flexible routing mechanism that can handle various HTTP methods and paths. Ensure that request handling is efficient and supports the expected request patterns of your application.
+4. prometheus.hpp
+- Purpose: Manage interactions with Prometheus, such as querying metrics.
+- Typical Contents:
+  - Interface definitions for querying Prometheus.
+  - Methods for building and sending requests to Prometheus and handling responses.
+5. Dependency Injection and Testability
+- Purpose: Enable the injection of dependencies and facilitate testing.
