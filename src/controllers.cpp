@@ -20,6 +20,9 @@ public:
             res.set(http::field::server, BOOST_BEAST_VERSION_STRING);
             res.set(http::field::content_type, "application/json");
             res.body() = "{\"message\":\"Hello World\"}";
+            res.set(http::field::access_control_allow_origin, "*");
+            res.set(http::field::access_control_allow_methods, "GET, POST, PUT, DELETE, OPTIONS");
+            res.set(http::field::access_control_allow_headers, "Content-Type");
             res.prepare_payload();
             res.keep_alive(req.keep_alive());
             return res;
@@ -209,6 +212,9 @@ private:
             http::response<http::string_body> res{http::status::accepted, req.version()};
             res.set(http::field::server, BOOST_BEAST_VERSION_STRING);
             res.set(http::field::content_type, "application/json");
+            res.set(http::field::access_control_allow_origin, "*");
+            res.set(http::field::access_control_allow_methods, "GET, POST, PUT, DELETE, OPTIONS");
+            res.set(http::field::access_control_allow_headers, "Content-Type");
             res.body() = json_body;
             res.prepare_payload();
             res.keep_alive(req.keep_alive());

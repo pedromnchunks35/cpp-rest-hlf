@@ -64,3 +64,8 @@
   - Methods for building and sending requests to Prometheus and handling responses.
 5. Dependency Injection and Testability
 - Purpose: Enable the injection of dependencies and facilitate testing.
+# ENVIRONMENT VARIABLES
+- HOSTNAME_PROMETHEUS
+  - The hostname of prometheus that we will be targeting
+- PORT_PROMETHEUS
+  - The port of prometheus that we will be targeting

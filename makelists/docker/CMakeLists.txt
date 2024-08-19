@@ -17,7 +17,7 @@ add_compile_definitions(PR_DEBUG)
 include(FetchContent)
 FetchContent_Declare(
     googletest
-    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_REPOSITORY git@github.com:google/googletest.git
     GIT_TAG b514bdc898e2951020cbdca1304b75f5950d1f59
 )
 FetchContent_MakeAvailable(googletest)
@@ -28,15 +28,21 @@ SOURCES_TEST
 ./test/register_routes.cpp
 )
 
-set(BOOST_INCLUDE_LIBRARIES json beast)
-set(BOOST_ENABLE_CMAKE ON)
-include(FetchContent)
+# BOOST LIBRARY SETUP
+##  SPECIFY THE ROOT AND A LIBRARY FOR BOOST
 FetchContent_Declare(
-  Boost
+  boost
   GIT_REPOSITORY https://github.com/boostorg/boost.git
-  GIT_TAG boost-1.85.0
+  GIT_TAG        boost-1.78.0 
 )
-FetchContent_MakeAvailable(Boost)
+
+FetchContent_MakeAvailable(boost)
+set(BOOST_ROOT ${fetchcontent_source_dir_boost})
+set(BOOST_INCLUDEDIR ${BOOST_ROOT})
+set(BOOST_LIBRARYDIR ${BOOST_ROOT}/stage/lib)
+
+## FIND BOOST
+find_package(Boost REQUIRED COMPONENTS json)
 
 set(
 SOURCES
@@ -58,8 +64,8 @@ add_executable(my_rest_api_test ${SOURCES_TEST})
 # TARGETS
 ## TEST
 ###  LINKING LIBRARIES FOR THE TESTS
-target_link_libraries(my_rest_api_test PRIVATE Boost::json Boost::beast gtest_main gmock_main)
-target_link_libraries(my_rest_api Boost::json Boost::beast)
+target_link_libraries(my_rest_api_test PRIVATE Boost::json gtest_main gmock_main)
+target_link_libraries(my_rest_api Boost::json)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include(GoogleTest)

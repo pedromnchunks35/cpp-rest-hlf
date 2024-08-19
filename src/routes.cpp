@@ -95,6 +95,8 @@ public:
         route_info_gb_per_machine.handler = (*controllerImplementation).ram_gb_per_machine_controller();
         route_info_gb_per_machine.method = http::verb::get;
         route_info_gb_per_machine.path = "/machine/";
+        RegisterRoutesErrors err_info_gb_per_machine = RegisterRoutesErrors::OK;
+        (*handlingImplementation).register_sub_route(main_route, route_info_gb_per_machine, err_info_gb_per_machine);
 
         //? REGISTER RAM PER COMPONENT %
         RouteInfo route_info_gb_per_component_perc;

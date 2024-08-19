@@ -1,0 +1,46 @@
+
+pipeline{
+    agent{
+        node{
+            label 'default'
+        }
+    }
+    environment {
+        KUBECONFIG = "/etc/kubernetes/admin_hospital.conf";
+        PATH="$PATH:/run/media/pedromn35/disk2-home/manually-installed-bins/fabric-samples/bin/:/run/media/pedromn35/disk2-home/manually-installed-bins/go/bin/";
+        CPP_REST_HLF_LOCATION="/run/media/pedromn35/disk2-home/projects/cpp-rest-hlf";
+        YAML_FILES_LOCATION="/run/media/pedromn35/disk2-home/projects/hospital-installation-kubernetes/Benchmarking/kubernetes-network/kuber-components/";
+    }
+    stages{
+        stage('Tests'){
+            steps{
+               sh '''
+               echo =========================================Skipping tests because they come with the make===========================================================
+               '''
+                 
+
+                }
+        }
+        stage('Build images'){
+            steps{
+                sh'''
+                cd $CPP_REST_HLF_LOCATION
+                docker build -t pedrosilvamnchunks/cpp-rest-hlf:latest .
+                '''
+                 }
+        }
+        stage('Publish image'){
+            steps{
+                sh 'docker push pedrosilvamnchunks/cpp-rest-hlf:latest';
+            }
+        }
+        stage('Run the new images on the cluster'){
+            steps{
+                sh'''
+                cd $YAML_FILES_LOCATION
+                ./clear-cpp-rest-hlf.sh
+                '''
+            }
+        }
+    }
+}
